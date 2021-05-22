@@ -1,12 +1,13 @@
 import React from "react";
-
+import MiGuardadito from "../../components/MiGuardadito/MiGuardadito";
+import Retiro from "../../components/Retiro/Retiro";
 const MainContainer = ({ view = 0 }) => {
   const handleView = () => {
     switch (view) {
       case 0:
-        return <h1>Caso 0 entre</h1>;
+        return <MiGuardadito />;
       case 1:
-        return <h1>Caso 1 entre</h1>;
+        return <Retiro />;
       case 2:
         return <h1>Caso 2 entree</h1>;
       default:

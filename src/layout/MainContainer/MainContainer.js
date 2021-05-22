@@ -7,6 +7,8 @@ const MainContainer = ({ view = 0 }) => {
         return <h1>Caso 0 entre</h1>;
       case 1:
         return <h1>Caso 1 entre</h1>;
+      case 2:
+        return <h1>Caso 2 entree</h1>;
       default:
         return <h1>UPS</h1>;
     }

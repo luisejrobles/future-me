@@ -17,7 +17,7 @@ const GuardaditoForm = ({ formik }) => {
           placeholder="Cuánto quiero ahorrar? "
           onChange={formik.handleChange}
           value={formik.values.amountToSave}
-          className="rounded-md h-9 cursor-auto"
+          className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
         ></input>
       </div>
       <div className="flex flex-col">
@@ -30,7 +30,7 @@ const GuardaditoForm = ({ formik }) => {
           placeholder="Hasta cuándo tienes para ahorrar?"
           onChange={formik.handleChange}
           value={formik.values.finalDate}
-          className="rounded-md h-9 cursor-auto"
+          className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
         ></input>
       </div>
       <div className="flex flex-col">
@@ -43,7 +43,7 @@ const GuardaditoForm = ({ formik }) => {
           placeholder="Con qué periodicidad puedes ahorrar?"
           onChange={formik.handleChange}
           value={formik.values.periodicity}
-          className="rounded-md h-9 cursor-auto"
+          className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="default">Elige periodo...</option>
           <option value="7">Semanal</option>

@@ -130,7 +130,7 @@ const MiGuardadito = () => {
     <div className="w-100 h-full  flex">
       <div className="w-1/4 flex flex-col space-y-3 mr-2 ">
         <h1 className="text-indigo-700 text-2xl font-bold text-center">
-          Cálculame
+          Guardadito
         </h1>
         <GuardaditoForm formik={formik} />
       </div>

@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { DateTime } from "luxon";
 import React from "react";
 
 const GuardaditoForm = ({ formik }) => {
@@ -43,7 +44,7 @@ const GuardaditoForm = ({ formik }) => {
           placeholder="Con qué periodicidad puedes ahorrar?"
           onChange={formik.handleChange}
           value={formik.values.periodicity}
-          className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500 "
         >
           <option value="default">Elige periodo...</option>
           <option value="7">Semanal</option>
@@ -65,14 +66,31 @@ const GuardaditoForm = ({ formik }) => {
 const MiGuardadito = () => {
   const formik = useFormik({
     initialValues: {
-      amountToSave: undefined,
+      amountToSave: 0,
       finalDate: "",
       periodicity: 0,
     },
     onSubmit: (values) => {
-      console.log(values);
+      const { amountToSave, finalDate, periodicity } = values;
+      const daysOfDifference = getRange(finalDate);
+      console.log(daysOfDifference);
+      const numberOfPayments =
+        daysOfDifference / periodicity >= 1
+          ? daysOfDifference / periodicity
+          : 1;
+      const paymentAmount = amountToSave / numberOfPayments;
+      console.log(paymentAmount);
     },
   });
+
+  const getRange = (date) => {
+    console.log(date);
+    const currentDate = DateTime.now();
+    const lastDate = Date.now();
+    console.log(`Current: ${currentDate}, Last: ${lastDate}`);
+    return lastDate - currentDate;
+  };
+
   return (
     <div className="w-100 h-full  flex">
       <div className="w-1/4 flex flex-col space-y-3 mr-2 ">

@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  Facebook,
-  GitHub,
-  Instagram,
-  Linkedin,
-  Twitter,
-  User,
-} from "react-feather";
+import { GitHub, Instagram, Linkedin, Twitter, User } from "react-feather";
 
 const Footer = () => {
   return (
-    <div className=" flex flex-col text-center font-sans text-xl text-indigo-900">
-      <div className="self-center">Made with ♥ by luisejrobles </div>
-      <div className="self-center flex space-x-4">
+    <div className=" flex flex-col font-sans mr-4 text-xl text-indigo-900">
+      <div className="self-end">Made with ♥ by luisejrobles </div>
+      <div className="self-end flex space-x-4">
         <a
           href="https://twitter.com/luisejrobles"
           rel="noreferrer"

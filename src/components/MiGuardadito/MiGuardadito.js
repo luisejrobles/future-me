@@ -1,6 +1,7 @@
-import { useFormik } from "formik";
+import { ErrorMessage, useFormik } from "formik";
 import { DateTime, Interval } from "luxon";
 import React, { useState } from "react";
+import GuardaditoFormValidation from "./Validations/GuardaditoForm";
 
 const GuardaditoForm = ({ formik }) => {
   return (
@@ -10,20 +11,21 @@ const GuardaditoForm = ({ formik }) => {
     >
       <div className="flex flex-col">
         <p className="font-bold text-indigo-500">
-          Introduce cuánto quieres ahorrar
+          Introduce cuánto quieres ahorrar <sup>*</sup>
         </p>
         <input
           type="number"
           name="amountToSave"
+          min="1"
           placeholder="Cuánto quiero ahorrar? "
           onChange={formik.handleChange}
           value={formik.values.amountToSave}
           className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        ></input>
+        />
       </div>
       <div className="flex flex-col">
         <p className="font-bold text-indigo-500">
-          Hasta cuándo tienes para ahorrar?
+          Hasta cuándo tienes para ahorrar? <sup>*</sup>
         </p>
         <input
           type="date"
@@ -32,11 +34,12 @@ const GuardaditoForm = ({ formik }) => {
           onChange={formik.handleChange}
           value={formik.values.finalDate}
           className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        ></input>
+          required
+        />
       </div>
       <div className="flex flex-col">
         <p className="font-bold text-indigo-500">
-          Con qué frecuencia planeas ahorrar?
+          Con qué frecuencia planeas ahorrar? <sup>*</sup>
         </p>
         <select
           type="select"
@@ -45,16 +48,22 @@ const GuardaditoForm = ({ formik }) => {
           onChange={formik.handleChange}
           value={formik.values.periodicity}
           className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+          required
         >
-          <option value="default">Elige periodo...</option>
+          <option value="">Elige periodo...</option>
           <option value="7">Semanal</option>
           <option value="15">Quincenal</option>
           <option value="30">Mensual</option>
           <option value="1">Diario</option>
         </select>
       </div>
+
       <button
-        className="bg-indigo-500 hover:bg-indigo-900 self-center h-9 w-11/12 rounded-md text-white font-bold"
+        className={
+          !formik.isValid
+            ? "bg-indigo-500 cursor-not-allowed self-center h-9 w-11/12 rounded-md text-white font-bold "
+            : "bg-indigo-500 hover:bg-indigo-900 cursor-pointer self-center h-9 w-11/12 rounded-md text-white font-bold"
+        }
         type="submit"
       >
         Calcular
@@ -73,10 +82,10 @@ const NoCalculo = () => {
 const DespliegueCalculo = ({ payments, paymentAmount }) => {
   return (
     <span>
-      <h1 className="text-2xl w-full h-1/5 text-center font-bold text-indigo-800">
+      <h1 className="text-2xl w-full h-1/6 text-center font-bold text-indigo-700">
         Acá está tu ahorradito
       </h1>
-      <div className="text-8xl w-full h-4/5 pl-10 text-indigo-500">
+      <div className="text-8xl w-full h-5/6 pl-10 text-indigo-500">
         Vas a tener que hacer{"  "}
         <span className="font-bold text-indigo-700">
           {payments} pago
@@ -114,7 +123,9 @@ const MiGuardadito = () => {
       finalDate: "",
       periodicity: 0,
     },
+    validationSchema: GuardaditoFormValidation,
     onSubmit: (values) => {
+      console.log("entree");
       const { amountToSave, finalDate, periodicity } = values;
       const daysOfDifference = getRange(finalDate);
       const payments = numberOfPayments(daysOfDifference, periodicity);

@@ -6,8 +6,6 @@ import MainContainer from "../MainContainer/MainContainer";
 const Container = () => {
   const [view, setView] = useState(0);
   const handleChange = (value) => {
-    console.log("entree");
-    console.log(view);
     setView(value);
   };
   return (

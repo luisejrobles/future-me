@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { DateTime } from "luxon";
-import React from "react";
+import { DateTime, Interval } from "luxon";
+import React, { useState } from "react";
 
 const GuardaditoForm = ({ formik }) => {
   return (
@@ -63,7 +63,51 @@ const GuardaditoForm = ({ formik }) => {
   );
 };
 
+const NoCalculo = () => {
+  return (
+    <div className="text-9xl justify-center text-indigo-300 h-full flex flex-col ">
+      Haz tu cálculo.👈
+    </div>
+  );
+};
+const DespliegueCalculo = ({ payments, paymentAmount }) => {
+  return (
+    <span>
+      <h1 className="text-2xl w-full h-1/5 text-center font-bold text-indigo-800">
+        Acá está tu ahorradito
+      </h1>
+      <div className="text-8xl w-full h-4/5 pl-10 text-indigo-500">
+        Vas a tener que hacer{"  "}
+        <span className="font-bold text-indigo-700">
+          {payments} pago
+          {payments > 1 ? "s" : ""} de ${paymentAmount}
+        </span>
+        💸
+      </div>
+    </span>
+  );
+};
 const MiGuardadito = () => {
+  const [paymentInfo, setPaymentInfo] = useState({
+    payments: 0,
+    paymentAmount: 0,
+  });
+
+  const [calculoHecho, setCalculoHecho] = useState(false);
+
+  const numberOfPayments = (daysOfDifference, periodicity) =>
+    truncDecimals(
+      daysOfDifference / periodicity >= 1 ? daysOfDifference / periodicity : 1
+    );
+  const truncDecimals = (number) => Math.trunc(number);
+
+  const getRange = (date) => {
+    const currentDate = DateTime.now();
+    let lastDate = DateTime.fromFormat(date, "yyyy-mm-dd");
+    lastDate = DateTime.fromISO(date);
+    const days = Interval.fromDateTimes(currentDate, lastDate).length("days");
+    return truncDecimals(days);
+  };
   const formik = useFormik({
     initialValues: {
       amountToSave: 0,
@@ -73,23 +117,14 @@ const MiGuardadito = () => {
     onSubmit: (values) => {
       const { amountToSave, finalDate, periodicity } = values;
       const daysOfDifference = getRange(finalDate);
-      console.log(daysOfDifference);
-      const numberOfPayments =
-        daysOfDifference / periodicity >= 1
-          ? daysOfDifference / periodicity
-          : 1;
-      const paymentAmount = amountToSave / numberOfPayments;
-      console.log(paymentAmount);
+      const payments = numberOfPayments(daysOfDifference, periodicity);
+      setPaymentInfo({
+        payments: numberOfPayments(daysOfDifference, periodicity),
+        paymentAmount: (amountToSave / payments).toFixed(2),
+      });
+      setCalculoHecho(true);
     },
   });
-
-  const getRange = (date) => {
-    console.log(date);
-    const currentDate = DateTime.now();
-    const lastDate = Date.now();
-    console.log(`Current: ${currentDate}, Last: ${lastDate}`);
-    return lastDate - currentDate;
-  };
 
   return (
     <div className="w-100 h-full  flex">
@@ -99,8 +134,15 @@ const MiGuardadito = () => {
         </h1>
         <GuardaditoForm formik={formik} />
       </div>
-      <div className="w-3/4 ">
-        <h1>Result</h1>
+      <div className="w-3/4">
+        {calculoHecho ? (
+          <DespliegueCalculo
+            payments={paymentInfo.payments}
+            paymentAmount={paymentInfo.paymentAmount}
+          />
+        ) : (
+          <NoCalculo />
+        )}
       </div>
     </div>
   );

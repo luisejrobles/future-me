@@ -11,7 +11,7 @@ const Container = () => {
   return (
     <div className="flex flex-col bg-indigo-500 w-100 h-screen">
       <div className="flex w-100 items-center h-5/6 ">
-        <LeftNav updateState={handleChange} />
+        <LeftNav updateState={handleChange} currentView={view} />
         <MainContainer view={view} />
       </div>
       <div className="h-1/6">

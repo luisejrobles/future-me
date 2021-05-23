@@ -1,4 +1,5 @@
 import React from "react";
+import Inversion from "../../components/Inversion/Inversion";
 import MiGuardadito from "../../components/MiGuardadito/MiGuardadito";
 import Retiro from "../../components/Retiro/Retiro";
 const MainContainer = ({ view = 0 }) => {
@@ -9,7 +10,7 @@ const MainContainer = ({ view = 0 }) => {
       case 1:
         return <Retiro />;
       case 2:
-        return <h1>Caso 2 entree</h1>;
+        return <Inversion />;
       default:
         return <h1>UPS</h1>;
     }

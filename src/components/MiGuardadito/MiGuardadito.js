@@ -76,7 +76,10 @@ const GuardaditoForm = ({ formik }) => {
 const NoCalculo = () => {
   return (
     <div className="text-9xl justify-center text-indigo-300 h-full flex flex-col ">
-      Haz tu cálculo.👈
+      Haz tu cálculo.
+      <span role={"img"} aria-label="point left finger">
+        👈
+      </span>
     </div>
   );
 };

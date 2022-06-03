@@ -12,10 +12,10 @@ const RetiroForm = ({ formik }) => (
       </p>
       <input
         type="number"
-        name="actualAge"
+        name="currentAge"
         min="1"
         onChange={formik.handleChange}
-        value={formik.values.actualAge}
+        value={formik.values.currentAge}
         className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
     </div>
@@ -43,7 +43,7 @@ const RetiroForm = ({ formik }) => (
       <select
         type="select"
         name="investmentStrategy"
-        placeholder="Con qué periodicidad puedes ahorrar?"
+        placeholder="Con qué periodicidad puedes depositar?"
         onChange={formik.handleChange}
         value={formik.values.investmentStrategy}
         className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500 "
@@ -61,16 +61,16 @@ const RetiroForm = ({ formik }) => (
       </p>
       <input
         type="number"
-        name="retiringAge"
+        name="initialAmount"
         onChange={formik.handleChange}
-        value={formik.values.retiringAge}
+        value={formik.values.initialAmount}
         className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
         required
       />
     </div>
     <div className="flex flex-col">
       <p className="font-bold text-indigo-500">
-        ¿Con qué periodicidad planeas ahorrar? <sup>*</sup>
+        ¿Con qué periodicidad planeas depositar? <sup>*</sup>
       </p>
       <div className="inline-flex">
         <button
@@ -95,9 +95,9 @@ const RetiroForm = ({ formik }) => (
       </p>
       <input
         type="number"
-        name="retiringAge"
+        name="amountToDeposit"
         onChange={formik.handleChange}
-        value={formik.values.retiringAge}
+        value={formik.values.amountToDeposit}
         className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500"
         required
       />
@@ -127,22 +127,36 @@ const NoCalculo = () => {
   );
 };
 const Retiro = () => {
-  // eslint-disable-next-line
+  const [retiringInfo, setRetiringInfo] = useState({
+    yearsLeftToRetire: 0,
+    amountToSaveByPeriodicityChosen: 0,
+    periodicity: "",
+    amountAtRetiringAge: 0,
+  });
   const [calculoHecho, setCalculoHecho] = useState(false);
   const formik = useFormik({
     initialValues: {
-      retiringAge: "",
-      currentAge: "",
+      retiringAge: 0,
+      currentAge: 0,
       investmentStrategy: "",
-      initialAmount: "",
-      amountToDeposit: "",
-      periodicity: "",
+      initialAmount: 0,
+      amountToDeposit: 0,
+      periodicity: 0,
     },
     validationSchema: RetiroFormValidation,
     onSubmit: (values) => {
-      console.log(values);
+      const {
+        retiringAge,
+        currentAge,
+        investmentStrategy,
+        periodicity,
+        initialAmount,
+      } = values;
     },
   });
+  const yearsLeftToRetire = (currentAge, retiringAge) =>
+    retiringAge - currentAge;
+
   return (
     <div className="w-100 h-full  flex">
       <div className="w-2/4 flex flex-col space-y-3 mr-2 ">

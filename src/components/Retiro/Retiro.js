@@ -21,7 +21,11 @@ const RetiroForm = ({ formik }) => (
     </div>
     <div className="flex flex-col">
       <p className="font-bold text-indigo-500">
-        ¿A qué edad planeas jubilarte? <sup>*</sup>
+        ¿A qué edad planeas jubilarte?
+        <i>
+          <small> (dejar de trabajar)</small>
+        </i>
+        <sup>*</sup>
       </p>
       <input
         type="number"
@@ -46,8 +50,9 @@ const RetiroForm = ({ formik }) => (
         required
       >
         <option value="0">Elige estrategia...</option>
-        <option value="1">Conservadora</option>
-        <option value="2">Agresiva</option>
+        <option value="1">Conservadora (+-10% anual)</option>
+        <option value="1">Neutra (+-15% anual)</option>
+        <option value="2">Agresiva (+-25% anual)</option>
       </select>
     </div>
     <div className="flex flex-col">
@@ -68,20 +73,6 @@ const RetiroForm = ({ formik }) => (
         ¿Con qué periodicidad planeas ahorrar? <sup>*</sup>
       </p>
       <div className="inline-flex">
-        <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4 rounded-l"
-          value={formik.values.periodicity}
-          onClick={() => formik.setFieldValue("periodicity", 1)}
-        >
-          Diario
-        </button>
-        <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4"
-          value={formik.values.periodicity}
-          onClick={() => formik.setFieldValue("periodicity", +7)}
-        >
-          Semanal
-        </button>
         <button
           className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4 "
           value={formik.values.periodicity}
@@ -136,6 +127,7 @@ const NoCalculo = () => {
   );
 };
 const Retiro = () => {
+  // eslint-disable-next-line
   const [calculoHecho, setCalculoHecho] = useState(false);
   const formik = useFormik({
     initialValues: {

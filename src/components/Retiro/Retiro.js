@@ -74,7 +74,7 @@ const RetiroForm = ({ formik }) => (
       </p>
       <div className="inline-flex">
         <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4 "
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4  rounded-l"
           value={formik.values.periodicity}
           onClick={() => formik.setFieldValue("periodicity", +15)}
         >

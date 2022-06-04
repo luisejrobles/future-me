@@ -127,11 +127,19 @@ const DespliegueCalculo = ({ retiringInfo }) => {
           <span className="text-indigo-500 font-bold text-2xl">
             {retiringInfo.yearsUntilRetirement} años
           </span>{" "}
-          y{" "}
+          <br></br>y{" "}
           <span className="text-indigo-500 font-bold text-2xl">
-            planeas ahorrar ${retiringInfo.amountToSaveByPeriodicityChosen}MXN
+            planeas ahorrar ${retiringInfo.amountToSaveByPeriodicityChosen} MXN
+            cada {retiringInfo.periodicity === 30 ? "mes" : "quincena"}.
           </span>{" "}
-          cada {retiringInfo.periodicity === 30 ? "mes" : "quincena"}.
+          <br></br>
+          <span className="text-indigo-500 font-bold text-2xl">
+            El total
+          </span>{" "}
+          que habrás{" "}
+          <span className="text-indigo-500 font-bold text-2xl">
+            depositado será de ${retiringInfo.amountSaved} MXN
+          </span>
         </p>
       </div>
     </span>

@@ -262,6 +262,11 @@ const Retiro = () => {
       case "3":
         console.log("entre 3");
         return { strategyName: "Agresiva", strategyAverageInterest: 25 };
+      default:
+        return {
+          strategyName: "Ups, hubo un error",
+          strategyAverageInterest: 0,
+        };
     }
   };
   return (

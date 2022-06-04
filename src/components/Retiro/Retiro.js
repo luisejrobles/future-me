@@ -120,15 +120,15 @@ const RetiroForm = ({ formik }) => (
 const DespliegueCalculo = ({ retiringInfo }) => {
   return (
     <span>
-      <div className="text-7xl text-indigo-300 text-center h-full flex flex-col ">
-        Acá está tu pronóstico 🚀
-        <p className="text-indigo-700 text-lg text-left mt-10">
+      <div className="text-7xl text-indigo-500 text-center  h-full flex flex-col ">
+        <span className="font-bold">Acá está tu pronóstico 🚀</span>
+        <p className="text-indigo-400 text-lg text-left mt-10">
           Para tu retiro faltan{" "}
-          <span className="font-bold">
+          <span className="text-indigo-500 font-bold text-2xl">
             {retiringInfo.yearsUntilRetirement} años
           </span>{" "}
           y{" "}
-          <span className="font-bold">
+          <span className="text-indigo-500 font-bold text-2xl">
             planeas ahorrar ${retiringInfo.amountToSaveByPeriodicityChosen}MXN
           </span>{" "}
           cada {retiringInfo.periodicity === 30 ? "mes" : "quincena"}.

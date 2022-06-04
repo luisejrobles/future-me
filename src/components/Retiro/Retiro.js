@@ -134,7 +134,7 @@ const Retiro = () => {
     amountToSaveByPeriodicityChosen: 0,
     periodicity: "",
     amountSaved: 0,
-    amountAtRetiringAge: 0,
+    amountSavedPlusInterests: 0,
   });
   const [calculoHecho, setCalculoHecho] = useState(false);
   const formik = useFormik({
@@ -171,6 +171,7 @@ const Retiro = () => {
         amountSaved: amountSavedThroughYears,
       });
       console.log(retiringInfo);
+      setCalculoHecho(true);
     },
   });
 
@@ -179,7 +180,7 @@ const Retiro = () => {
    * of retiring.
    * @param {number} currentAge
    * @param {number} retiringAge
-   * @returns
+   * @returns {number} yearsToSave
    */
   const yearsToRetire = (currentAge, retiringAge) => retiringAge - currentAge;
 
@@ -192,6 +193,9 @@ const Retiro = () => {
    * If periodicity is at 30, person is willing to deposit 12 times a year.
    * If periodicity is at 15, person is willing to deposit 24 times a year.
    *
+   * WARNING: This will take the whole year as a period to save money, in the
+   * future, we can calculate based on the month we're in until the year the person
+   * wants to retire
    * @param {number} yearsToSave
    * @param {number} periodicity
    * @param {number} initialAmount

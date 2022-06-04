@@ -49,10 +49,10 @@ const RetiroForm = ({ formik }) => (
         className="rounded-md h-9 cursor-auto focus:outline-none focus:ring-2 focus:ring-indigo-500 "
         required
       >
-        <option value="0">Elige estrategia...</option>
+        <option value="">Elige estrategia...</option>
         <option value="1">Conservadora (+-10% anual)</option>
-        <option value="1">Neutra (+-15% anual)</option>
-        <option value="2">Agresiva (+-25% anual)</option>
+        <option value="2">Neutra (+-15% anual)</option>
+        <option value="3">Agresiva (+-25% anual)</option>
       </select>
     </div>
     <div className="flex flex-col">
@@ -138,7 +138,18 @@ const DespliegueCalculo = ({ retiringInfo }) => {
           </span>{" "}
           que habrás{" "}
           <span className="text-indigo-500 font-bold text-2xl">
-            depositado será de ${retiringInfo.amountSaved} MXN
+            depositado será de ${retiringInfo.amountSaved} MXN.
+          </span>
+          <br></br>
+          <br></br>
+          Tomando en cuenta tu{" "}
+          <span className="text-indigo-500 font-bold text-2xl">
+            estrategia de inversión que fue {retiringInfo.strategy.strategyName}
+          </span>{" "}
+          con un{" "}
+          <span className="text-indigo-500 font-bold text-2xl">
+            retorno anualizado de{" "}
+            {retiringInfo.strategy.strategyAverageInterest}%
           </span>
         </p>
       </div>
@@ -160,6 +171,7 @@ const Retiro = () => {
     yearsUntilRetirement: 0,
     amountToSaveByPeriodicityChosen: 0,
     periodicity: "",
+    strategy: { strategyName: "", strategyAverageInterest: 0 },
     amountSaved: 0,
     amountSavedPlusInterests: 0,
   });
@@ -190,14 +202,14 @@ const Retiro = () => {
         initialAmount,
         amountToDeposit
       );
-      console.log(`Amount saved: ${amountSavedThroughYears}`);
+      const strategyDetails = setStrategyDetails(investmentStrategy);
       setRetiringInfo({
         yearsUntilRetirement: yearsLeftToRetire,
         amountToSaveByPeriodicityChosen: amountToDeposit,
+        strategy: strategyDetails,
         periodicity: periodicity,
         amountSaved: amountSavedThroughYears,
       });
-      // console.log(retiringInfo);
       setCalculoHecho(true);
     },
   });
@@ -239,6 +251,19 @@ const Retiro = () => {
     (periodicity === 30 ? yearsToSave * 12 : yearsToSave * 24) *
       amountToDeposit;
 
+  const setStrategyDetails = (investmentStrategy) => {
+    switch (investmentStrategy) {
+      case "1":
+        console.log("entre");
+        return { strategyName: "Conservadora", strategyAverageInterest: 10 };
+      case "2":
+        console.log("entre 2");
+        return { strategyName: "Neutra", strategyAverageInterest: 15 };
+      case "3":
+        console.log("entre 3");
+        return { strategyName: "Agresiva", strategyAverageInterest: 25 };
+    }
+  };
   return (
     <div className="w-100 h-full  flex">
       <div className="w-2/4 flex flex-col space-y-3 mr-2 ">

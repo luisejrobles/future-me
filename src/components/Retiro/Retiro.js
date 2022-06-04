@@ -77,6 +77,7 @@ const RetiroForm = ({ formik }) => (
           className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4  rounded-l"
           value={formik.values.periodicity}
           onClick={() => formik.setFieldValue("periodicity", +15)}
+          type="button"
         >
           Quincenal
         </button>
@@ -84,6 +85,7 @@ const RetiroForm = ({ formik }) => (
           className="bg-gray-300 hover:bg-gray-400 text-gray-800  py-2 px-4 rounded-r"
           value={formik.values.periodicity}
           onClick={() => formik.setFieldValue("periodicity", +30)}
+          type="button"
         >
           Mensual
         </button>
@@ -128,9 +130,10 @@ const NoCalculo = () => {
 };
 const Retiro = () => {
   const [retiringInfo, setRetiringInfo] = useState({
-    yearsLeftToRetire: 0,
+    yearsUntilRetirement: 0,
     amountToSaveByPeriodicityChosen: 0,
     periodicity: "",
+    amountSaved: 0,
     amountAtRetiringAge: 0,
   });
   const [calculoHecho, setCalculoHecho] = useState(false);
@@ -151,11 +154,37 @@ const Retiro = () => {
         investmentStrategy,
         periodicity,
         initialAmount,
+        amountToDeposit,
       } = values;
+      const yearsLeftToRetire = yearsToRetire(currentAge, retiringAge);
+      const amountSavedThroughYears = totalAmountSavedThroughYears(
+        yearsLeftToRetire,
+        periodicity,
+        initialAmount,
+        amountToDeposit
+      );
+      console.log(`Amount saved: ${amountSavedThroughYears}`);
+      setRetiringInfo({
+        yearsUntilRetirement: yearsLeftToRetire,
+        amountToSaveByPeriodicityChosen: amountToDeposit,
+        periodicity: periodicity,
+        amountSaved: amountSavedThroughYears,
+      });
+      console.log(retiringInfo);
     },
   });
-  const yearsLeftToRetire = (currentAge, retiringAge) =>
-    retiringAge - currentAge;
+
+  const yearsToRetire = (currentAge, retiringAge) => retiringAge - currentAge;
+
+  const totalAmountSavedThroughYears = (
+    yearsToSave,
+    periodicity,
+    initialAmount,
+    amountToDeposit
+  ) =>
+    initialAmount +
+    (periodicity === 30 ? yearsToSave * 12 : yearsToSave * 24) *
+      amountToDeposit;
 
   return (
     <div className="w-100 h-full  flex">

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import RetiroFormValidation from "./Validations/RetiroForm";
 const RetiroForm = ({ formik }) => (
   <form
-    className="flex flex-col mt-4 justify-around  h-full "
+    className="flex flex-col mt-4 ml-2 mr-2 justify-around  h-full "
     onSubmit={formik.handleSubmit}
   >
     <div className="flex flex-col">
@@ -117,7 +117,26 @@ const RetiroForm = ({ formik }) => (
   </form>
 );
 
-const DespliegueCalculo = () => {};
+const DespliegueCalculo = ({ retiringInfo }) => {
+  return (
+    <span>
+      <div className="text-7xl text-indigo-300 text-center h-full flex flex-col ">
+        Acá está tu pronóstico 🚀
+        <p className="text-indigo-700 text-lg text-left mt-10">
+          Para tu retiro faltan{" "}
+          <span className="font-bold">
+            {retiringInfo.yearsUntilRetirement} años
+          </span>{" "}
+          y{" "}
+          <span className="font-bold">
+            planeas ahorrar ${retiringInfo.amountToSaveByPeriodicityChosen}MXN
+          </span>{" "}
+          cada {retiringInfo.periodicity === 30 ? "mes" : "quincena"}.
+        </p>
+      </div>
+    </span>
+  );
+};
 const NoCalculo = () => {
   return (
     <div className="text-9xl justify-center text-indigo-300 h-full flex flex-col ">
@@ -170,7 +189,7 @@ const Retiro = () => {
         periodicity: periodicity,
         amountSaved: amountSavedThroughYears,
       });
-      console.log(retiringInfo);
+      // console.log(retiringInfo);
       setCalculoHecho(true);
     },
   });
@@ -215,13 +234,15 @@ const Retiro = () => {
   return (
     <div className="w-100 h-full  flex">
       <div className="w-2/4 flex flex-col space-y-3 mr-2 ">
-        <h1 className="text-indigo-700 text-2xl font-bold text-center">
-          Retiro
-        </h1>
+        <h1 className="text-indigo-500 text-4xl font-bold text-left">Retiro</h1>
         <RetiroForm formik={formik} />
       </div>
       <div className="w-2/4">
-        {calculoHecho ? <DespliegueCalculo /> : <NoCalculo />}
+        {calculoHecho ? (
+          <DespliegueCalculo retiringInfo={retiringInfo} />
+        ) : (
+          <NoCalculo />
+        )}
       </div>
     </div>
   );

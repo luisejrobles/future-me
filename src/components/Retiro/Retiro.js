@@ -174,8 +174,30 @@ const Retiro = () => {
     },
   });
 
+  /**
+   * This function will calculate the years left from actual to the age
+   * of retiring.
+   * @param {number} currentAge
+   * @param {number} retiringAge
+   * @returns
+   */
   const yearsToRetire = (currentAge, retiringAge) => retiringAge - currentAge;
 
+  /**
+   * This function will calculate the net amount of money you'll deposit
+   * through the years you plan to save, plus the initial amount.
+   * Periodicity have two possible values:
+   * - 30 = Deposit monthly.
+   * - 15 = Deposit twice a month.
+   * If periodicity is at 30, person is willing to deposit 12 times a year.
+   * If periodicity is at 15, person is willing to deposit 24 times a year.
+   *
+   * @param {number} yearsToSave
+   * @param {number} periodicity
+   * @param {number} initialAmount
+   * @param {number} amountToDeposit
+   * @returns {number}
+   */
   const totalAmountSavedThroughYears = (
     yearsToSave,
     periodicity,

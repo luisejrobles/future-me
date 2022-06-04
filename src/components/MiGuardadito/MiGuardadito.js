@@ -7,7 +7,7 @@ import GuardaditoFormValidation from "./Validations/GuardaditoForm";
 const GuardaditoForm = ({ formik }) => {
   return (
     <form
-      className="flex flex-col mt-4 justify-around  h-full "
+      className="flex flex-col mt-4 ml-2 mr-2 justify-around  h-full "
       onSubmit={formik.handleSubmit}
     >
       <div className="flex flex-col">
@@ -143,13 +143,13 @@ const MiGuardadito = () => {
 
   return (
     <div className="w-100 h-full  flex">
-      <div className="w-1/4 flex flex-col space-y-3 mr-2 ">
-        <h1 className="text-indigo-700 text-2xl font-bold text-center">
+      <div className="w-2/4 flex flex-col space-y-3 mr-2 ">
+        <h1 className="text-indigo-500 text-4xl font-bold text-left">
           Guardadito
         </h1>
         <GuardaditoForm formik={formik} />
       </div>
-      <div className="w-3/4">
+      <div className="w-2/4">
         {calculoHecho ? (
           <DespliegueCalculo
             payments={paymentInfo.payments}

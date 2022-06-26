@@ -57,7 +57,7 @@ const RetiroForm = ({ formik }) => (
     </div>
     <div className="flex flex-col">
       <p className="font-bold text-indigo-500">
-        ¿Cuál es el monto inicial para invertir? <sup>*</sup>
+        ¿Cuál es el monto inicial para invertir en tu jubilación? <sup>*</sup>
       </p>
       <input
         type="number"
@@ -120,9 +120,9 @@ const RetiroForm = ({ formik }) => (
 const DespliegueCalculo = ({ retiringInfo }) => {
   return (
     <span>
-      <div className="text-7xl text-indigo-500 text-center  h-full flex flex-col ">
+      <div className="text-7xl text-indigo-500 text-center flex flex-col">
         <span className="font-bold">Acá está tu pronóstico 🚀</span>
-        <p className="text-indigo-400 text-lg text-left mt-10">
+        <p className="text-indigo-400 text-lg text-left mt-4">
           Para tu retiro faltan{" "}
           <span className="text-indigo-500 font-bold text-2xl">
             {retiringInfo.yearsUntilRetirement} años
@@ -153,9 +153,20 @@ const DespliegueCalculo = ({ retiringInfo }) => {
           </span>
         </p>
       </div>
+      <TablaRetiro />
     </span>
   );
 };
+
+const TablaRetiro = ({ retiringInfo }) => {
+  return (
+    <table>
+      <th>hola</th>
+      <tr>heeey</tr>
+    </table>
+  );
+};
+
 const NoCalculo = () => {
   return (
     <div className="text-9xl justify-center text-indigo-300 h-full flex flex-col ">
@@ -269,6 +280,7 @@ const Retiro = () => {
         };
     }
   };
+
   return (
     <div className="w-100 h-full  flex">
       <div className="w-2/4 flex flex-col space-y-3 mr-2 ">

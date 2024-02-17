@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "amplitude-js": "^8.18.5",
     "cra-template": "^1.1.2",
+    "craco": "^0.0.3",
     "formik": "^2.2.8",
     "luxon": "^1.27.0",
     "react": "^17.0.2",
@@ -43,6 +44,8 @@
       "last 1 safari version"
     ]
   },
+    "cracoConfig": "craco.config.js"
+  ,
   "devDependencies": {
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",

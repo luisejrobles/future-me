@@ -38,6 +38,36 @@ const LeftNav = ({ updateState, currentView }) => {
       >
         Inversión
       </button>
+      <button
+        className={
+          currentView === 3
+            ? "border-none rounded-md text-left pl-2 w-4/5 text-white bg-indigo-900 "
+            : "border-none rounded-md text-left pl-2 w-4/5 text-white hover:bg-indigo-900 hover:border-radius-lg"
+        }
+        onClick={() => changeView(3)}
+      >
+        [Parrot] Login
+      </button>
+      <button
+        className={
+          currentView === 4
+            ? "border-none rounded-md text-left pl-2 w-4/5 text-white bg-indigo-900 "
+            : "border-none rounded-md text-left pl-2 w-4/5 text-white hover:bg-indigo-900 hover:border-radius-lg"
+        }
+        onClick={() => changeView(4)}
+      >
+        [Parrot] Menu
+      </button>
+      <button
+        className={
+          currentView === 5
+            ? "border-none rounded-md text-left pl-2 w-4/5 text-white bg-indigo-900 "
+            : "border-none rounded-md text-left pl-2 w-4/5 text-white hover:bg-indigo-900 hover:border-radius-lg"
+        }
+        onClick={() => changeView(5)}
+      >
+        [Parrot] Pedidos
+      </button>
     </div>
   );
 };

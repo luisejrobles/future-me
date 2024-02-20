@@ -21,6 +21,9 @@ let actions = {
     set: (props) => {
       mixpanel.people.set(props);
     },
+    reset: () => {
+      mixpanel.reset();
+    },
   },
 };
 
